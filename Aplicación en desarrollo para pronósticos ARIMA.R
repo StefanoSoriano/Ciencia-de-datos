@@ -35,7 +35,7 @@ ui <- fluidPage(
                    label = "Subir variables económicas en formato .csv",
                    multiple = TRUE),
                       h4("UAM Azcapotzalco"),
-                      helpText("Desarrollado en R Shiny."),
+                      helpText("Desarrollado en R Shiny. Por Jorge Stephano Soriano Urbán"),
                        textInput("caption", "Estado I:", ""),
                           textInput("caption1", "Actividad I:", ""),
                             textInput("caption_", "Estado II:", ""),
