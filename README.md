@@ -1,2 +1,3 @@
 # Ciencia-de-datos
-Ejercicios y scripts de formación en ciencia de datos, multilenguaje.
+En este repositorio se encuentran ejercicios y scripts de formación en ciencia de datos en múltiples lenguajes de programación, así como, una aplicación (en desarrollo) en lenguaje R que se ejecuta en R Shiny, para forecasting de modelos de series de tiempo ARIMA y SARIMA.
+.
