@@ -5,7 +5,7 @@ ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
         fileInput("csvs",
-                   label = "Subir variables económicas en formato .csv",
+                   label = "Subir variables en formato .csv",
                    multiple = TRUE),
                       h4("UAM Azcapotzalco"),
                       helpText("Desarrollado en R Shiny. Por Jorge Stephano Soriano Urbán"),
@@ -15,14 +15,14 @@ ui <- fluidPage(
                               textInput("caption2", "Actividad II:", ""),
                                  textInput("caption__", "Estado III:", ""),
                                     textInput("caption3", "Actividad III:", ""),
-                            sliderInput("perAdelante", "Número de periodos a pronosticar:",
+                            sliderInput("perAdelante", "Número de periodos hacia adelante:",
                                       min = 1, max = 15,
                                                   value = 5)
 ),
       
       mainPanel(
-         h2("Pronóstico de variables económicas"),
-         h5("Modelos macroeconómicos I"),
+         h2("Forecasting"),
+         h5("..."),
          plotOutput("niveles_x"),
          plotOutput("difer_x"),
          plotOutput("tsdiag_x"),
