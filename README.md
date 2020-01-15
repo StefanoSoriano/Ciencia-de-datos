@@ -20,7 +20,7 @@ ui <- fluidPage(
                               textInput("caption2", "Actividad II:", ""),
                                  textInput("caption__", "Estado III:", ""),
                                     textInput("caption3", "Actividad III:", ""),
-                            sliderInput("perAdelante", "Número de periodos hacia adelante:",
+                            sliderInput("perAdelante", "Número de periodos a pronosticar:",
                                       min = 1, max = 15,
                                                   value = 5)
 ),
