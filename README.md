@@ -1,5 +1,8 @@
-# Ciencia de datos
+# Predicción automática de series de tiempo (modelos ARIMA y SARIMA)
+
 En este repositorio se encuentra una aplicación (en desarrollo) en lenguaje R que se ejecuta en R Shiny, para forecasting en modo automático de series de tiempo, modelos ARIMA y SARIMA.
+
+### Script en lenguaje HTML y R que se ejecuta en [Rshiny](https://shiny.rstudio.com/)
 
 ```r
 ui <- fluidPage(
