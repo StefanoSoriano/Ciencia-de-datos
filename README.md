@@ -10,7 +10,7 @@ ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
         fileInput("csvs",
-                   label = "Subir variables en formato .csv",
+                   label = "Subir series de tiempo en formato .csv",
                    multiple = TRUE),
                       h4("UAM Azcapotzalco"),
                       helpText("Desarrollado en R Shiny. Por Jorge Stephano Soriano Urbán"),
