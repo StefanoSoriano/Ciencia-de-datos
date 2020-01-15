@@ -2,7 +2,7 @@
 
 En este repositorio se encuentra una aplicación (en desarrollo) en lenguaje R que se ejecuta en R Shiny, para forecasting de series de tiempo en modo automático, modelos ARIMA y SARIMA.
 
-### Script en lenguaje HTML y R que se ejecuta en [Rshiny](https://shiny.rstudio.com/)
+### Script en lenguaje HTML y R que se ejecuta en [R Shiny](https://shiny.rstudio.com/)
 
 ```r
 ui <- fluidPage(
