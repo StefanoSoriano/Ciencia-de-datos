@@ -473,44 +473,23 @@ adelante <- as.numeric(adelante[2])
     adelante <- as.data.frame(sliderValues())
     adelante <- as.numeric(adelante[2])
     pronostico_z <- forecast::forecast(var_z, h = adelante)
-
-        (values.predict <- pronostico_z$mean)
-
+    (values.predict <- pronostico_z$mean)
 })
-
-
     output$var_names_x <- renderTable({
-
-    
     print(input$csvs$name[1])
-    
-
-    })
-
-output$var_names_y <- renderTable({
-
-    print(input$csvs$name[2])
-   
-
 })
 
+    output$var_names_y <- renderTable({
+    print(input$csvs$name[2])
+})
     output$var_names_z <- renderTable({
-
-        print(input$csvs$name[3])
-
-
-    })
-
-    
-   
-   
+    print(input$csvs$name[3])
+})   
     sliderValues <- reactive({
-
-        data.frame(
+      data.frame(
       Name = c("Integer"),
       Value = as.character(c(input$perAdelante)),
       stringsAsFactors = FALSE)
-
     })
 }
 
