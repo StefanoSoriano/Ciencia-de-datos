@@ -18,11 +18,7 @@ ui <- fluidPage(
                 label = "Subir serie de tiempo en formato .csv",
                 multiple = TRUE),
     h4("UAM Azcapotzalco"),
-    helpText("Desarrollado en R Shiny, por Jorge Stephano Soriano Urbán"),
-    
-    
-    
-    
+    helpText("Desarrollado en R Shiny, por Jorge Stephano Soriano Urbán"),    
     textInput("caption", "Estado de la República Mexicana:", ""),
     textInput("caption1", "Actividad económica:", ""),
     sliderInput("PerAdelante",
@@ -46,22 +42,7 @@ ui <- fluidPage(
       plotOutput("pronPerAdelante"),
       h4("Valores del pronóstico:"),
       tableOutput("values_pronPerAdelante"),
-      tableOutput("values1_pronPerAdelante"),
-
-      plotOutput("niveles_y"),
-      plotOutput("difer_y"),
-      plotOutput("tsdiag_y"),
-      plotOutput("pron_y"),
-      tableOutput("values_pron_y"),
-      tableOutput("values1_pron_y"),
-
-
-      plotOutput("niveles_z"),
-      plotOutput("difer_z"),
-      plotOutput("tsdiag_z"),
-      plotOutput("pron_z"),
-      tableOutput("values_pron_z"),
-      tableOutput("values1_pron_z")
+      tableOutput("values1_pronPerAdelante")
     )
   )
 )
