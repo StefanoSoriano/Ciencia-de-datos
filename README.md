@@ -8,6 +8,7 @@ En este repositorio se encuentra una aplicación (en desarrollo) en lenguaje R q
 ###### Fuente: Elaboración propia en RStudio.
 
 ### Script en código HTML y R que se ejecuta en [R Shiny](https://shiny.rstudio.com/)
+
 ```r
 
 ui <- fluidPage(
