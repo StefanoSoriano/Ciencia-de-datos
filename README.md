@@ -2,7 +2,7 @@
 
 En este repositorio se encuentra una aplicación (en desarrollo) en lenguaje R que se ejecuta en R Shiny, para forecasting de series de tiempo en modo automático, modelos ARIMA y SARIMA.
 
-####                                                             Captura de pantalla de la aplicación: 
+####                                                                  Captura de pantalla de la aplicación: 
 <img src="https://github.com/StefanoSoriano/Mi-primera-web-app-en-R-Shiny/blob/master/Time%20Series%20Forecasting.png?raw=true" alt="drawing"/>
 
 ###### Fuente: Elaboración propia en RStudio.
