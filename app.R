@@ -9,8 +9,8 @@ ui <- fluidPage(
     helpText("Desarrollado en R Shiny, por Jorge Stephano Soriano Urbán"),    
     textInput("caption", "Estado de la República Mexicana:", ""),
     textInput("caption1", "Actividad económica:", ""),
-    sliderInput("PerAdelante",
-                "Número de períodos a pronosticar",
+    sliderInput("ForecastPer",
+                "Número de períodos a pronosticar:",
                 min = 1,
                 max = 25,
                 value = 5,
@@ -21,16 +21,16 @@ ui <- fluidPage(
       h2(".::::::Time Series Forecasting::::::."),
       h1(""),
       h4("Gráfica de la serie en niveles:"),
-      plotOutput("nivelesPerAdelante"),
+      plotOutput("niveles"),
       h4("Estadístico Ljung-Box:"),
-      plotOutput("plotPerAdelante"),
+      plotOutput("plot"),
       h4("Diferencias de la serie:"),
-      plotOutput("diferPerAdelante"),
+      plotOutput("difer"),
       h4("Pronóstico:"),
-      plotOutput("pronPerAdelante"),
+      plotOutput("pron"),
       h4("Valores del pronóstico:"),
-      tableOutput("values_pronPerAdelante"),
-      tableOutput("values1_pronPerAdelante")
+      tableOutput("values_pron"),
+      tableOutput("values1_pron")
     )
   )
 )
@@ -38,110 +38,110 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
-  output$nivelesPerAdelante <- renderPlot({
+  output$niveles <- renderPlot({
     if (length(input$csvs$datapath[1]) == 0) {
 
     } else {
-      varPerAdelante <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
-      varPerAdelante_ts <- varPerAdelante[, 2]
-      varPerAdelante <- varPerAdelante[, 1]
-      anios <- cbind(as.numeric(substr(varPerAdelante, 1, 4)))
-      anho.minPerAdelante <- min(anios)
-      anho.maxPerAdelante <- max(anios)
-      mesPerAdelante <- cbind(as.numeric(gsub("(.*)/", "", varPerAdelante)))
-      mesPerAdelante <- mesPerAdelante[1,]
-      frecPerAdelante <- dplyr::filter(as.data.frame(anios), anios == anho.minPerAdelante + 1)
-      frecPerAdelante <- length(frecPerAdelante[, 1])
-      varPerAdelante <- stats::ts(varPerAdelante_ts, start = c(anho.minPerAdelante, mesPerAdelante), frequency = frecPerAdelante)
-      edoPerAdelante <- input$caption
-      actPerAdelante <- input$caption1
-      plot(varPerAdelante, main = paste("Actividad ", actPerAdelante, " de ", edoPerAdelante, " de ", anho.minPerAdelante, " a ", anho.maxPerAdelante, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', actPerAdelante, sep = ""), xlab = 'Año')
+      var <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
+      var_ts <- var[, 2]
+      var <- var[, 1]
+      anios <- cbind(as.numeric(substr(var, 1, 4)))
+      anho.min <- min(anios)
+      anho.max <- max(anios)
+      mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
+      mes <- mes[1,]
+      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- length(frec[, 1])
+      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      edo <- input$caption
+      act <- input$caption1
+      plot(var, main = paste("Actividad ", act, " de ", edo, " de ", anho.min, " a ", anho.max, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
     }
   })
 
 
-  output$plotPerAdelante <- renderPlot({
+  output$plot <- renderPlot({
     if (length(input$csvs$datapath[1]) == 0) {
 
     } else {
-      varPerAdelante <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
-      varPerAdelante_ts <- varPerAdelante[, 2]
-      varPerAdelante <- varPerAdelante[, 1]
-      anios <- cbind(as.numeric(substr(varPerAdelante, 1, 4)))
-      anho.minPerAdelante <- min(anios)
-      anho.maxPerAdelante <- max(anios)
-      mesPerAdelante <- cbind(as.numeric(gsub("(.*)/", "", varPerAdelante)))
-      mesPerAdelante <- mesPerAdelante[1,]
-      frecPerAdelante <- dplyr::filter(as.data.frame(anios), anios == anho.minPerAdelante + 1)
-      frecPerAdelante <- length(frecPerAdelante[, 1])
-      varPerAdelante <- stats::ts(varPerAdelante_ts, start = c(anho.minPerAdelante, mesPerAdelante), frequency = frecPerAdelante)
-      modeloPerAdelante <- forecast::auto.arima(varPerAdelante)
-      tsdiag(modeloPerAdelante)
+      var <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
+      var_ts <- var[, 2]
+      var <- var[, 1]
+      anios <- cbind(as.numeric(substr(var, 1, 4)))
+      anho.min <- min(anios)
+      anho.max <- max(anios)
+      mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
+      mes <- mes[1,]
+      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- length(frec[, 1])
+      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      modelo <- forecast::auto.arima(var)
+      tsdiag(modelo)
     }
   })
 
-  output$diferPerAdelante <- renderPlot({
+  output$difer <- renderPlot({
     if (length(input$csvs$datapath[1]) == 0) {
 
     } else {
-      varPerAdelante <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
-      varPerAdelante_ts <- varPerAdelante[, 2]
-      varPerAdelante <- varPerAdelante[, 1]
-      anios <- cbind(as.numeric(substr(varPerAdelante, 1, 4)))
-      anho.minPerAdelante <- min(anios)
-      anho.maxPerAdelante <- max(anios)
-      mesPerAdelante <- cbind(as.numeric(gsub("(.*)/", "", varPerAdelante)))
-      mesPerAdelante <- mesPerAdelante[1,]
-      frecPerAdelante <- dplyr::filter(as.data.frame(anios), anios == anho.minPerAdelante + 1)
-      frecPerAdelante <- length(frecPerAdelante[, 1])
-      varPerAdelante <- stats::ts(varPerAdelante_ts, start = c(anho.minPerAdelante, mesPerAdelante), frequency = frecPerAdelante)
-      n_diffPerAdelante <- forecast::ndiffs(varPerAdelante, test = c("adf"))
-      var_diffPerAdelante <- diff(varPerAdelante, n_diffPerAdelante)
-      edoPerAdelante <- input$caption
-      actPerAdelante <- input$caption1
-      plot(var_diffPerAdelante, main = paste("Diferencias de la actividad ", actPerAdelante, " de ", edoPerAdelante, " de ", anho.minPerAdelante, " a ", anho.maxPerAdelante, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', actPerAdelante, sep = ""), xlab = 'Año')
-      abline(h = mean(var_diffPerAdelante), col = 'blue')
+      var <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
+      var_ts <- var[, 2]
+      var <- var[, 1]
+      anios <- cbind(as.numeric(substr(var, 1, 4)))
+      anho.min <- min(anios)
+      anho.max <- max(anios)
+      mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
+      mes <- mes[1,]
+      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- length(frec[, 1])
+      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      n_diff <- forecast::ndiffs(var, test = c("adf"))
+      var_diff <- diff(var, n_diff)
+      edo <- input$caption
+      act <- input$caption1
+      plot(var_diff, main = paste("Diferencias de la actividad ", act, " de ", edo, " de ", anho.min, " a ", anho.max, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
+      abline(h = mean(var_diff), col = 'blue')
     }
   })
 
-  output$pronPerAdelante <- renderPlot({
+  output$pron <- renderPlot({
     if (length(input$csvs$datapath[1]) == 0) {
 
     } else {
-      varPerAdelante <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
-      varPerAdelante_ts <- varPerAdelante[, 2]
-      varPerAdelante <- varPerAdelante[, 1]
-      anios <- cbind(as.numeric(substr(varPerAdelante, 1, 4)))
-      anho.minPerAdelante <- min(anios)
-      anho.maxPerAdelante <- max(anios)
-      mesPerAdelante <- cbind(as.numeric(gsub("(.*)/", "", varPerAdelante)))
-      mesPerAdelante <- mesPerAdelante[1,]
-      frecPerAdelante <- dplyr::filter(as.data.frame(anios), anios == anho.minPerAdelante + 1)
-      frecPerAdelante <- length(frecPerAdelante[, 1])
-      varPerAdelante <- stats::ts(varPerAdelante_ts, start = c(anho.minPerAdelante, mesPerAdelante), frequency = frecPerAdelante)
-      pronosticoPerAdelante <- forecast::forecast(varPerAdelante, h = input$PerAdelante)
-      edoPerAdelante <- input$caption
-      actPerAdelante <- input$caption1
-      plot(pronosticoPerAdelante, main = paste("Pronóstico de la actividad ", actPerAdelante, " de ", edoPerAdelante, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', actPerAdelante, sep = ""), xlab = 'Año')
+      var <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
+      var_ts <- var[, 2]
+      var <- var[, 1]
+      anios <- cbind(as.numeric(substr(var, 1, 4)))
+      anho.min <- min(anios)
+      anho.max <- max(anios)
+      mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
+      mes <- mes[1,]
+      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- length(frec[, 1])
+      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      pronostico <- forecast::forecast(var, h = input$ForecastPer)
+      edo <- input$caption
+      act <- input$caption1
+      plot(pronostico, main = paste("Pronóstico de la actividad ", act, " de ", edo, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
     }
   })
-  output$values_pronPerAdelante <- renderTable({
+  output$values_pron <- renderTable({
     if (length(input$csvs$datapath[1]) == 0) {
 
     } else {
-      varPerAdelante <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
-      varPerAdelante_ts <- varPerAdelante[, 2]
-      varPerAdelante <- varPerAdelante[, 1]
-      anios <- cbind(as.numeric(substr(varPerAdelante, 1, 4)))
-      anho.minPerAdelante <- min(anios)
-      anho.maxPerAdelante <- max(anios)
-      mesPerAdelante <- cbind(as.numeric(gsub("(.*)/", "", varPerAdelante)))
-      mesPerAdelante <- mesPerAdelante[1,]
-      frecPerAdelante <- dplyr::filter(as.data.frame(anios), anios == anho.minPerAdelante + 1)
-      frecPerAdelante <- length(frecPerAdelante[, 1])
-      varPerAdelante <- stats::ts(varPerAdelante_ts, start = c(anho.minPerAdelante, mesPerAdelante), frequency = frecPerAdelante)
-      pronosticoPerAdelante <- forecast::forecast(varPerAdelante, h = input$PerAdelante)
-      print(pronosticoPerAdelante[2])
+      var <- read.csv(input$csvs$datapath[1], header = T, sep = ",")
+      var_ts <- var[, 2]
+      var <- var[, 1]
+      anios <- cbind(as.numeric(substr(var, 1, 4)))
+      anho.min <- min(anios)
+      anho.max <- max(anios)
+      mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
+      mes <- mes[1,]
+      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- length(frec[, 1])
+      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      pronostico <- forecast::forecast(var, h = input$ForecastPer)
+      print(pronostico[2])
     }
   })
 }
