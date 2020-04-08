@@ -16,8 +16,7 @@ ui <- fluidPage(
                 value = 5,
               )
                ),
-
-    mainPanel(
+mainPanel(
       h2(".::::::Time Series Forecasting::::::."),
       h1(""),
       h4("Gráfica de la serie en niveles:"),
@@ -34,7 +33,6 @@ ui <- fluidPage(
     )
   )
 )
-
 
 server <- function(input, output) {
 
@@ -125,6 +123,7 @@ server <- function(input, output) {
       plot(pronostico, main = paste("Pronóstico de la actividad ", act, " de ", edo, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
     }
   })
+  
   output$values_pron <- renderTable({
     if (length(input$csvs$datapath[1]) == 0) {
 
