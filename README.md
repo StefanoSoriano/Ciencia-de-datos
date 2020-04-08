@@ -15,11 +15,12 @@ ui <- fluidPage(
   titlePanel(" "),
   sidebarLayout(
    sidebarPanel(
+    h4("                UAM Azcapotzalco"),
+    h6("Desarrollado en R Shiny, por Jorge Stephano Soriano Urbán"),
+    h1(" "),
     fileInput("csvs",
                 label = "Subir serie de tiempo en formato .csv",
                 multiple = TRUE),
-    h4("UAM Azcapotzalco"),
-    helpText("Desarrollado en R Shiny, por Jorge Stephano Soriano Urbán"),    
     textInput("caption", "Estado de la República Mexicana:", ""),
     textInput("caption1", "Actividad económica:", ""),
     sliderInput("ForecastPer",
@@ -30,8 +31,10 @@ ui <- fluidPage(
               )
                ),
 mainPanel(
-      h2(".::::::Time Series Forecasting::::::."),
-      h1(""),
+      h1("              .::::::Time Series Forecasting::::::."),
+      h6("                                                  
+                                                     ARIMA and SARIMA models"),
+      h1("                  "),
       h4("Gráfica de la serie en niveles:"),
       plotOutput("niveles"),
       h4("Estadístico Ljung-Box:"),
@@ -159,6 +162,5 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
-
 
 ```
