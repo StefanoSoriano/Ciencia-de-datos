@@ -29,8 +29,7 @@ ui <- fluidPage(
                 value = 5,
               )
                ),
-
-    mainPanel(
+mainPanel(
       h2(".::::::Time Series Forecasting::::::."),
       h1(""),
       h4("Gráfica de la serie en niveles:"),
@@ -48,7 +47,6 @@ ui <- fluidPage(
   )
 )
 
-
 server <- function(input, output) {
 
   output$niveles <- renderPlot({
@@ -59,16 +57,16 @@ server <- function(input, output) {
       var_ts <- var[, 2]
       var <- var[, 1]
       anios <- cbind(as.numeric(substr(var, 1, 4)))
-      anho.min <- min(anios)
-      anho.max <- max(anios)
+      anio.min <- min(anios)
+      anio.max <- max(anios)
       mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
       mes <- mes[1,]
-      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- dplyr::filter(as.data.frame(anios), anios == anio.min + 1)
       frec <- length(frec[, 1])
-      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      var <- stats::ts(var_ts, start = c(anio.min, mes), frequency = frec)
       edo <- input$caption
       act <- input$caption1
-      plot(var, main = paste("Actividad ", act, " de ", edo, " de ", anho.min, " a ", anho.max, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
+      plot(var, main = paste("Actividad ", act, " de ", edo, " de ", anio.min, " a ", anio.max, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
     }
   })
 
@@ -81,13 +79,13 @@ server <- function(input, output) {
       var_ts <- var[, 2]
       var <- var[, 1]
       anios <- cbind(as.numeric(substr(var, 1, 4)))
-      anho.min <- min(anios)
-      anho.max <- max(anios)
+      anio.min <- min(anios)
+      anio.max <- max(anios)
       mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
       mes <- mes[1,]
-      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- dplyr::filter(as.data.frame(anios), anios == anio.min + 1)
       frec <- length(frec[, 1])
-      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      var <- stats::ts(var_ts, start = c(anio.min, mes), frequency = frec)
       modelo <- forecast::auto.arima(var)
       tsdiag(modelo)
     }
@@ -101,18 +99,18 @@ server <- function(input, output) {
       var_ts <- var[, 2]
       var <- var[, 1]
       anios <- cbind(as.numeric(substr(var, 1, 4)))
-      anho.min <- min(anios)
-      anho.max <- max(anios)
+      anio.min <- min(anios)
+      anio.max <- max(anios)
       mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
       mes <- mes[1,]
-      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- dplyr::filter(as.data.frame(anios), anios == anio.min + 1)
       frec <- length(frec[, 1])
-      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      var <- stats::ts(var_ts, start = c(anio.min, mes), frequency = frec)
       n_diff <- forecast::ndiffs(var, test = c("adf"))
       var_diff <- diff(var, n_diff)
       edo <- input$caption
       act <- input$caption1
-      plot(var_diff, main = paste("Diferencias de la actividad ", act, " de ", edo, " de ", anho.min, " a ", anho.max, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
+      plot(var_diff, main = paste("Diferencias de la actividad ", act, " de ", edo, " de ", anio.min, " a ", anio.max, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
       abline(h = mean(var_diff), col = 'blue')
     }
   })
@@ -125,19 +123,20 @@ server <- function(input, output) {
       var_ts <- var[, 2]
       var <- var[, 1]
       anios <- cbind(as.numeric(substr(var, 1, 4)))
-      anho.min <- min(anios)
-      anho.max <- max(anios)
+      anio.min <- min(anios)
+      anio.max <- max(anios)
       mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
       mes <- mes[1,]
-      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- dplyr::filter(as.data.frame(anios), anios == anio.min + 1)
       frec <- length(frec[, 1])
-      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      var <- stats::ts(var_ts, start = c(anio.min, mes), frequency = frec)
       pronostico <- forecast::forecast(var, h = input$ForecastPer)
       edo <- input$caption
       act <- input$caption1
       plot(pronostico, main = paste("Pronóstico de la actividad ", act, " de ", edo, ".", sep = ""), las = 1, sub = 'Fuente: INEGI', ylab = paste('Actividad ', act, sep = ""), xlab = 'Año')
     }
   })
+  
   output$values_pron <- renderTable({
     if (length(input$csvs$datapath[1]) == 0) {
 
@@ -146,13 +145,13 @@ server <- function(input, output) {
       var_ts <- var[, 2]
       var <- var[, 1]
       anios <- cbind(as.numeric(substr(var, 1, 4)))
-      anho.min <- min(anios)
-      anho.max <- max(anios)
+      anio.min <- min(anios)
+      anio.max <- max(anios)
       mes <- cbind(as.numeric(gsub("(.*)/", "", var)))
       mes <- mes[1,]
-      frec <- dplyr::filter(as.data.frame(anios), anios == anho.min + 1)
+      frec <- dplyr::filter(as.data.frame(anios), anios == anio.min + 1)
       frec <- length(frec[, 1])
-      var <- stats::ts(var_ts, start = c(anho.min, mes), frequency = frec)
+      var <- stats::ts(var_ts, start = c(anio.min, mes), frequency = frec)
       pronostico <- forecast::forecast(var, h = input$ForecastPer)
       print(pronostico[2])
     }
@@ -160,5 +159,6 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
+
 
 ```
