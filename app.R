@@ -1,10 +1,10 @@
 ui <- fluidPage(
-  titlePanel(" "),
+  titlePanel(""),
   sidebarLayout(
    sidebarPanel(
     h4("                UAM Azcapotzalco"),
     h6("Desarrollado en R Shiny, por Jorge Stephano Soriano Urbán"),
-    h1(" "),
+    h1(""),
     fileInput("csvs",
                 label = "Subir serie de tiempo en formato .csv",
                 multiple = TRUE),
