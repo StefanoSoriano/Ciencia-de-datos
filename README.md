@@ -107,7 +107,6 @@ server <- function(input, output) {
       frecPerAdelante <- dplyr::filter(as.data.frame(anios), anios == anho.minPerAdelante + 1)
       frecPerAdelante <- length(frecPerAdelante[, 1])
       varPerAdelante <- stats::ts(varPerAdelante_ts, start = c(anho.minPerAdelante, mesPerAdelante), frequency = frecPerAdelante)
-
       n_diffPerAdelante <- forecast::ndiffs(varPerAdelante, test = c("adf"))
       var_diffPerAdelante <- diff(varPerAdelante, n_diffPerAdelante)
       edoPerAdelante <- input$caption
