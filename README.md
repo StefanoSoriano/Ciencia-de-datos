@@ -12,12 +12,12 @@ En este repositorio se encuentra una aplicación (en desarrollo) en lenguaje R q
 ```r
 
 ui <- fluidPage(
-  titlePanel(" "),
+  titlePanel(""),
   sidebarLayout(
    sidebarPanel(
     h4("                UAM Azcapotzalco"),
     h6("Desarrollado en R Shiny, por Jorge Stephano Soriano Urbán"),
-    h1(" "),
+    h1(""),
     fileInput("csvs",
                 label = "Subir serie de tiempo en formato .csv",
                 multiple = TRUE),
@@ -34,7 +34,7 @@ mainPanel(
       h1("              .::::::Time Series Forecasting::::::."),
       h6("                                                  
                                                      ARIMA and SARIMA models"),
-      h1("                  "),
+      h1(""),
       h4("Gráfica de la serie en niveles:"),
       plotOutput("niveles"),
       h4("Estadístico Ljung-Box:"),
