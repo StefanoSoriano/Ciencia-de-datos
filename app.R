@@ -21,7 +21,7 @@ mainPanel(
       h1("              .::::::Time Series Forecasting::::::."),
       h6("                                                  
                                                      ARIMA and SARIMA models"),
-      h1("                  "),
+      h1(""),
       h4("Gráfica de la serie en niveles:"),
       plotOutput("niveles"),
       h4("Estadístico Ljung-Box:"),
